@@ -1,0 +1,442 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DOM Events</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css">
+		<link rel="stylesheet" href="css/style.css">
+
+		<!-- font awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>DOM Events</h1>
+					<article class="personal-info">
+						<p>Vladislav Sokolov</p>
+						<p>sokolov.stb@gmail.com</p>
+					</article>
+				</section>
+				<section>
+					<section>
+						<h2>Triggers</h2>
+						<p>User actions</p>
+						<div class="triggers-list">
+							<div class="fragment triggers-list__item">
+								<i class="fas fa-mouse-pointer"></i>
+							</div>
+							<div class="fragment triggers-list__item">
+								<i class="fas fa-keyboard"></i>
+							</div>
+							<div class="fragment triggers-list__item">
+								<i class="fas fa-hand-point-up"></i>
+							</div>
+							<div class="fragment triggers-list__item">
+								<i class="fas fa-gamepad"></i>
+							</div>
+						</div>
+					</section>
+					<section>
+						<a href="https://developer.mozilla.org/en-US/docs/Web/Events" class="mdn-link">MDN Event reference</a>
+					</section>
+					<section>
+						<h2>Mouse Events</h2>
+						<ul class="fragment">
+							<li>click</li>
+							<li>contextmenu</li>
+							<li>mouseover</li>
+							<li>mouseenter</li>
+							<li>mousedown/mouseup</li>
+							<li>mouseleave</li>
+							<li>dbclick</li>
+							<li>wheel</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Keyboard Events</h2>
+						<ul class="fragment">
+							<li>keydown</li>
+							<li>keyup</li>
+							<li>keypress</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Drag & Drop Events</h2>
+						<ul class="fragment">
+							<li>dragstart</li>
+							<li>drag</li>
+							<li>dragend</li>
+							<li>dragenter</li>
+							<li>dragover</li>
+							<li>dragleave</li>
+							<li>drop</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Focus Events</h2>
+						<ul class="fragment">
+							<li>focus</li>
+							<li>blur</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Form Events</h2>
+						<ul class="fragment">
+							<li>reset</li>
+							<li>submite</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Touch Events</h2>
+						<ul class="fragment">
+							<li>touchstart</li>
+							<li>touchmove</li>
+							<li>touchend</li>
+							<li>touchcancel</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Event Handling</h2>
+					</section>
+					<section>
+						<h3 style="margin-bottom: 2em;">Event Handling Models</h3>
+						<div class="event-handling">
+							<div>
+								<h4>Smoker's way</h4>
+								<ul>
+									<li>inline</li>
+									<li>traditional</li>
+								</ul>
+							</div>
+							<div>
+								<h4>Way of a healthy person</h4>
+								<ul>
+									<li>W3C</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Inline Event Handling Model</h2>
+					</section>
+					<section>
+						<div onclick="alert('hello')">
+							Click me
+						</div>
+						<pre class="rm-bs">
+							<code>
+<div onclick="alert('hello')">
+	Click me
+</div>
+							</code>
+						</pre>
+					</section>
+					<section>
+						<div onclick="sayHello()">
+							Click me
+						</div>
+						<pre class="rm-bs">
+							<code>
+<script>
+	function sayHello(){
+		alert('hello');
+	}
+</script>
+<div onclick="sayHello()">
+	Click me
+</div>
+							</code>
+						</pre>
+					</section>
+					<section>
+						<div onclick="sayHelloOnce()">
+							Click me
+						</div>
+						<pre class="rm-bs">
+							<code>
+<script>
+	function sayHelloOnce(e){
+		alert('hello');
+		event.target.removeAttribute('onclick');
+	}
+</script>
+<div onclick="sayHelloOnce()">
+	Click me
+</div>
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>'Traditional' Event Handling Model</h2>
+						<pre class="rm-bs fragment">
+							<code>
+element['on' + eventName] = eventHandler;
+							</code>
+						</pre>
+					</section>
+					<section>
+						<input type="button" id="button" value="Click me" class="button1">
+						<pre class="rm-bs">
+							<code>
+<script>
+	let btn1 = document.querySelector('.button1');
+	btn1.onclick = function(){
+		alert('Click!');
+	}
+</script>
+<input type="button" id="button" value="Button" class="button1">
+							</code>
+						</pre>
+					</section>
+					<section>
+						<input type="button" id="button" value="Click me" class="button2">
+						<pre class="rm-bs">
+							<code>
+<script>
+	let btn2 = document.querySelector('.button2');
+	btn2.onclick = clickMe;
+	function clickMe(){
+		alert('Click!');
+	}
+</script>
+							</code>
+						</pre>
+					</section>
+					<section>
+						<input type="button" id="button" value="Click me" class="button3">
+						<pre class="rm-bs">
+							<code>
+<script>
+	let btn3 = document.querySelector('.button3');
+	btn3.onclick = function(e){
+		alert('Click');
+		btn3.onclick = null;
+	}
+</script>
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>W3C Event Handling Model</h2>
+						<pre class="rm-bs">
+							<code>
+element.addEventListener(event, handler, phase);
+element.addEventListener('string', 'function', 'boolean');
+							</code>
+						</pre>
+					</section>
+					<section>
+						<div class="addEventDiv">
+							Click me
+						</div>
+						<pre class="rm-bs">
+							<code>
+<script>
+	let div1 = document.querySelector('.addEventDiv');
+	div1.addEventListener('click', function(){
+		alert('Click!');
+	},{
+		capture: true,
+		once: true
+	});
+</script>
+							</code>
+						</pre>
+					</section>
+					<section>
+						<div class="addEventDiv2">
+							Click me
+						</div>
+						<pre class="rm-bs">
+							<code>
+<script>
+	let div2 = document.querySelector('.addEventDiv2');
+	function alertClickOnce(){
+		alert('Click');
+		div2.removeEventListener('click', alertClickOnce);
+	}
+	div2.addEventListener('click', alertClickOnce);
+</script>
+							</code>
+						</pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Event Object</h2>
+						<p>Event Object - argument passed to event handler</p>
+						<pre class="rm-bs">
+							<code>
+<div id="divElem">Click me</div>
+<script>
+  const divElem = document.querySelector('#divElem');
+  divElem.onclick = function(event){
+    alert(`${event.type}`);
+    alert(`${event.clientX} : ${event.clientY}`);
+ }
+</script>
+							</code>
+						</pre>
+					</section>
+					<section>
+						<h3>Event Target</h3>
+						<pre class="rm-bs">
+								<code>
+<div id="divElem1">Click me</div>
+<script>
+  const divElem1 = document.querySelector('#divElem');
+  divElem1.onclick = function(event){
+    alert(`${event.target}`) // event.target === div
+    alert(`${event.cureentTarget}`) // event.currentTarget === this
+}
+</script>
+								</code>
+							</pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>DOM Events Trip</h2>
+						<div class="domTrip">
+							<div>
+								<h3>Capturing</h3>
+								<div>
+										<div>document</div>
+										<i class="fas fa-arrow-down"></i>
+										<div>e.target</div>
+								</div>
+							</div>
+							<div>
+								<h3>Bubbling</h3>
+								<div>
+										<div>document</div>
+										<i class="fas fa-arrow-up"></i>
+										<div>e.target</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h3>Event.properties</h3>
+						<ul>
+							<li>target</li>
+							<li>eventTarget</li>
+							<li>bubbles</li>
+							<li>eventPhase</li>
+							<li>type</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Event.methods</h3>
+						<ul>
+							<li>e.preventDefault()</li>
+							<li>e.stopPropagation()</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h3>Mouse Event</h3>
+						<ul>
+							<li>altKey</li>
+							<li>shiftKey</li>
+							<li>ctrlKey</li>
+							<li>clientX/clientY</li>
+							<li>which/button</li>
+							<li>pageX/pageY</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Keyboard Event</h3>
+						<ul>
+							<li>altKey</li>
+							<li>shiftKey</li>
+							<li>key</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Drag Events</h3>
+						<ul>
+							<li>dataTransfer</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Touch Events</h3>
+						<ul>
+							<li>touches</li>
+							<li>changedTouches</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h2>Event Delegation</h2>
+					<div class="fragment">
+						<ul class="menu">
+							<li>first</li>
+							<li>second</li>
+							<li>thidr</li>
+						</ul>
+					<pre class="rm-bs">
+						<code>
+<script>
+	const menu = document.querySelector('.menu');
+	menu.addEventListener('click', function(e){
+		if(e.target.tagName === 'LI'){
+			e.target.style.color = 'red'
+		}
+	})
+</script>
+						</code>
+					</pre>
+					</div>
+				</section>
+				<section>
+					<h2>Thank you!</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>

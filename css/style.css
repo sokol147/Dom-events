@@ -1,0 +1,37 @@
+.personal-info{
+  text-align: right;
+  margin-right: 10px;
+}
+.triggers-list{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.triggers-list__item{
+  margin: 0 50px !important;
+}
+.triggers-list__item i{
+  font-size: 3em;
+}
+.mdn-link{
+  font-size: 32px;
+}
+.event-handling{
+  display:flex;
+  justify-content: space-around;
+}
+.rm-bs{
+  box-shadow: none !important;
+}
+#button{
+  background: rgba(214, 214, 214, 0.452);
+  padding: 0.5em 1em;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  color: #ffffff;
+}
+.domTrip{
+  display: flex;
+  justify-content: space-around;
+}
